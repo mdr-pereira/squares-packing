@@ -24,6 +24,11 @@ This section will encompass possible ideas that we have for improving the algori
 
     Under suppositions made by us, it should be the largest boxes' variables first.
 
+    This should be able to be done through the following snippet
+
+    solver.setSearch(inputOrderUBSearch(boxX));
+    solver.setSearch(inputOrderUBSearch(boxY));
+
 ---
 ## Versions
 
