@@ -1,9 +1,9 @@
-import com.sun.jdi.IntegerType;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.variables.*;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pack {
 private final int n;
@@ -16,7 +16,7 @@ private final int maxH;
         this.maxH = maxH;
     }
 
-    public void solve() {
+    public List<int[][]> solve() {
         Model model = new Model("Simple Packing Problem");
         /*
         For this simple solver we'll exhaustively search the search space.
@@ -51,18 +51,22 @@ private final int maxH;
                  ).post();
             }
         }
-
+        
+        //Create a solver and return all solutions found.
         Solver solver = model.getSolver();
-        Object[] retX = new Object[n];
-        Object[] retY = new Object[n];
 
-        if(solver.solve()) {
-            retX = Arrays.stream(boxX).toArray();
-            retY = Arrays.stream(boxY).toArray();
+        //Return all solutions found as a List of an array of arrays of integers.
+        List<int[][]> solutions = new ArrayList<>();
+        while (solver.solve()) {
+            int[][] sol = new int[n][2];
+            for(int i = 0; i < n; i++) {
+                sol[i][0] = boxX[i].getValue();
+                sol[i][1] = boxY[i].getValue();
+            }
+            solutions.add(sol);
         }
 
-        Object[][] res = new Object[retX, retY]
-        return [retX, retY];
+        return solutions;
     }
 
 }
