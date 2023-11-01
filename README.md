@@ -4,10 +4,12 @@
 ## Ideas
 This section will encompass possible ideas that we have for improving the algorithm.
 
-### Global Constraints
-    As far as I see, there are no possible global constraints other than those we've
-    already designed.
+### General Improvements
+    Implement our solution as a parallel to scheduling problems, where task height and width are equal to the square's size.
 
+### Global Constraints
+    Implement the non-overlap checks as diffN.
+    
 ### Symmetry Breaking
     This has to really be studied, we have not implemented anything at all #TODO
 
