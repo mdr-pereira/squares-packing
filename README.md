@@ -6,9 +6,11 @@ This section will encompass possible ideas that we have for improving the algori
 
 ### General Improvements
     Implement our solution as a parallel to scheduling problems, where task height and width are equal to the square's size.
+        !! The speedup this gives us is significant
 
 ### Global Constraints
-    Implement the non-overlap checks as diffN.
+    Implement the non-overlap checks as diffN. 
+        !! The speedup is **very** significant.
     
 ### Symmetry Breaking
     This has to really be studied, we have not implemented anything at all #TODO
