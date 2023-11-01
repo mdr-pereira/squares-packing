@@ -13,7 +13,7 @@ public class Main {
             int maxW = Integer.parseInt(args[1]);
             int maxH = Integer.parseInt(args[2]);
 
-            Pack pack = new Pack(n, maxW, maxH);
+            Pack pack = new PackV1(n, maxW, maxH);
 
             pack.solve();
         } catch (NumberFormatException e) {
