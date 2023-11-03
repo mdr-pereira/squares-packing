@@ -41,7 +41,7 @@ public class Main {
             System.out.println("Found # solutions for V6: " + sol6.size() + "\n");
 
             //Do the same for pack 7
-            Pack pack7 = new PackV6(n, maxW, maxH);
+            Pack pack7 = new PackV5(n, maxW, maxH);
             List<int[][]> sol7 = pack7.pack();
             System.out.println("Found # solutions for V7: " + sol7.size() + "\n");
 

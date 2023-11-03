@@ -30,7 +30,6 @@ public class PackV2 extends AbstractPack implements Pack {
 
         for(int i = 0; i < n; i++) {
             sizes[i].eq(i+1).post();
-
             model.arithm(model.intOffsetView(boxes[0][i], i), "<=", maxW).post();
             model.arithm(model.intOffsetView(boxes[1][i], i), "<=", maxH).post();
         }

@@ -23,16 +23,12 @@ public class PackV4 extends AbstractPack implements Pack {
 
         //Create the variables for the boxes' origin coordinates.
         IntVar[][] boxes = new IntVar[2][n];
-
         IntVar[] sizes = model.intVarArray(n, 1, n);
 
         for(int i = 0; i < n; i++) {
+            sizes[i].eq(n-i).post();
             boxes[0][i] = model.intVar(1, maxW-(n-i)+1);
             boxes[1][i] = model.intVar(1, maxH-(n-i)+1);
-        }
-
-        for(int i = 0; i < n; i++) {
-            sizes[i].eq(n-i).post();
         }
 
         model.diffN(boxes[0], boxes[1], sizes, sizes, true).post();
