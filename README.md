@@ -24,6 +24,14 @@ This section will encompass possible ideas that we have for improving the algori
 
     Under suppositions made by us, it should be the largest boxes' variables first.
 
+    This should be able to be done through the following snippet
+
+    solver.setSearch(inputOrderUBSearch(boxX));
+    solver.setSearch(inputOrderUBSearch(boxY));
+
+    Nvm, this sets the search tree to start from right-left instead of bottom-up. To get the effect that we desire we have to redefine these arrays so that the size
+    of the box is in actuality n-ix.
+
 ---
 ## Versions
 
