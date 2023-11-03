@@ -1,3 +1,5 @@
+package pack;
+
 import java.util.List;
 
 public interface Pack {
@@ -7,5 +9,7 @@ public interface Pack {
      *
      * @return A list of solutions, each solution being a list of boxes, each box being a list of coordinates.
      */
-    public List<int[][]> solve();
+    public List<int[][]> pack();
+
+    void printSolution(int[][] solution);
 }
