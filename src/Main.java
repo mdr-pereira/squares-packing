@@ -24,18 +24,34 @@ public class Main {
             Pack pack2 = new PackV2(n, maxW, maxH);
             List<int[][]> sol2 = pack2.pack();
             System.out.println("Found # solutions for V2: " + sol2.size() + "\n");
-            for(int[][] sol : sol2) {
-                pack2.printSolution(sol);
-            }
 
             //Do the same for pack 3
             Pack pack3 = new PackV3(n, maxW, maxH);
             List<int[][]> sol3 = pack3.pack();
             System.out.println("Found # solutions for V3: " + sol3.size() + "\n");
-            for(int[][] sol : sol3) {
-                pack3.printSolution(sol);
-            }
 
+            //Do the same for pack 5
+            Pack pack5 = new PackV4(n, maxW, maxH);
+            List<int[][]> sol5 = pack5.pack();
+            System.out.println("Found # solutions for V5: " + sol5.size() + "\n");
+
+            //Do the same for pack 6
+            Pack pack6 = new PackV5(n, maxW, maxH);
+            List<int[][]> sol6 = pack6.pack();
+            System.out.println("Found # solutions for V6: " + sol6.size() + "\n");
+
+            //Do the same for pack 7
+            Pack pack7 = new PackV6(n, maxW, maxH);
+            List<int[][]> sol7 = pack7.pack();
+            System.out.println("Found # solutions for V7: " + sol7.size() + "\n");
+
+            //Do the same for pack optimize
+            Pack packOptimize = new PackOptimize(n);
+            List<int[][]> solOptimize = packOptimize.pack();
+            System.out.println("Found # solutions for Optimize: " + solOptimize.size() + "\n");
+            for(int[][] sol : solOptimize) {
+                packOptimize.printSolution(sol);
+            }
 
         } catch (NumberFormatException ignored) {
             System.out.println("Invalid parameters");

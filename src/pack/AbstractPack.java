@@ -24,6 +24,12 @@ public abstract class AbstractPack implements Pack {
 
     public abstract List<int[][]> pack();
 
+    protected List<int[][]> solve(Model model, IntVar[][] boxes, IntVar rectW, IntVar rectH) {
+        List<int[][]> sol = solve(model, boxes);
+        System.out.println("Width: " + rectW.getValue() + "\nHeight: " + rectH.getValue() + "\n");
+        return sol;
+    }
+
     protected List<int[][]> solve(Model model, IntVar[][] boxes) {
         Solver solver = model.getSolver();
 
@@ -38,7 +44,7 @@ public abstract class AbstractPack implements Pack {
         }
 
         //Print time needed to solve the problem
-        System.out.println("Time needed to solve the problem: " + solver.getTimeCount() + "s");
+        System.out.println("Time needed to solve the problem: " + (solver.getTimeCount()*1000) + "ms");
 
         return solutions;
     }

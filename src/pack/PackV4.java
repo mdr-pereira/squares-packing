@@ -5,9 +5,9 @@ import org.chocosolver.solver.variables.IntVar;
 
 import java.util.List;
 
-public class PackV2 extends AbstractPack implements Pack {
+public class PackV4 extends AbstractPack implements Pack {
 
-    public PackV2(int n, int maxW, int maxH) {
+    public PackV4(int n, int maxW, int maxH) {
         super(n, maxW, maxH);
     }
 
@@ -23,20 +23,28 @@ public class PackV2 extends AbstractPack implements Pack {
 
         //Create the variables for the boxes' origin coordinates.
         IntVar[][] boxes = new IntVar[2][n];
+        IntVar[][] boxes_invert = new IntVar[2][n];
+
         IntVar[] sizes = model.intVarArray(n, 1, n);
 
-        boxes[0] = model.intVarArray(n, 1, maxW);
-        boxes[1] = model.intVarArray(n, 1, maxH);
+        for(int i = 0; i < n; i++) {
+            boxes[0][i] = model.intVar(1, maxW-(n-i)+1);
+            boxes[1][i] = model.intVar(1, maxH-(n-i)+1);
+        }
+
+        boxes_invert[0] = model.intVarArray(n, 1, maxW);
+        boxes_invert[1] = model.intVarArray(n, 1, maxH);
 
         for(int i = 0; i < n; i++) {
-            sizes[i].eq(i+1).post();
+            sizes[i].eq(n-i).post();
 
-            model.arithm(model.intOffsetView(boxes[0][i], i), "<=", maxW).post();
-            model.arithm(model.intOffsetView(boxes[1][i], i), "<=", maxH).post();
+            boxes_invert[0][i].eq(boxes[0][n-i-1]).post();
+            boxes_invert[1][i].eq(boxes[1][n-i-1]).post();
         }
 
         model.diffN(boxes[0], boxes[1], sizes, sizes, true).post();
 
-        return super.solve(model, boxes);
+        return super.solve(model, boxes_invert);
     }
+
 }
