@@ -1,6 +1,7 @@
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 
+import org.chocosolver.solver.exception.SolverException;
 import pack.*;
 
 import java.util.List;
@@ -19,28 +20,24 @@ public class Main {
 
             Pack pack = new PackV1(n, maxW, maxH);
             List<int[][]> sol = pack.pack();
-            System.out.println("Found # solutions for V1: " + sol.size() + "\n");
+            pack.printSolution(sol.get(0));
 
 
             pack = new PackV2(n, maxW, maxH);
             sol = pack.pack();
-            System.out.println("Found # solutions for V2: " + sol.size() + "\n");
-
+            pack.printSolution(sol.get(0));
 
             pack = new PackV3(n, maxW, maxH);
             sol = pack.pack();
-            System.out.println("Found # solutions for V3: " + sol.size() + "\n");
-
+            pack.printSolution(sol.get(0));
 
             pack = new PackV4(n, maxW, maxH);
             sol = pack.pack();
-            System.out.println("Found # solutions for V4: " + sol.size() + "\n");
-
+            pack.printSolution(sol.get(0));
 
             pack = new PackV5(n, maxW, maxH);
             sol = pack.pack();
-            System.out.println("Found # solutions for V5: " + sol.size() + "\n");
-
+            pack.printSolution(sol.get(0));
 
             //Do the same for pack optimize
             Pack packOptimize = new PackOptimize(n);
@@ -48,6 +45,8 @@ public class Main {
 
         } catch (NumberFormatException ignored) {
             System.out.println("Invalid parameters");
+        } catch (SolverException e) {
+            System.out.println("No solution possible with the given parameters");
         }
     }
 }

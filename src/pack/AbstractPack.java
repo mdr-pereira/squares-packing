@@ -52,9 +52,14 @@ public abstract class AbstractPack implements Pack {
             }
             solutions.add(sol);
         }
+        if(solutions.isEmpty()) {
+            solutions.add(new int[2][n]);
+        } else {
+            System.out.println("Found " + solutions.size() + " solutions");
+        }
 
         //Print time needed to solve the problem
-        System.out.println("Time needed to solve the problem: " + (solver.getTimeCount()*1000) + "ms");
+        System.out.print("Time needed to solve the problem: " + (solver.getTimeCount()*1000) + "ms\n\n");
 
         return solutions;
     }
