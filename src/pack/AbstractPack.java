@@ -24,10 +24,15 @@ public abstract class AbstractPack implements Pack {
 
     public abstract List<int[][]> pack();
 
-    protected List<int[][]> solve(Model model, IntVar[][] boxes, IntVar rectW, IntVar rectH, boolean inverted) {
-        List<int[][]> sol = solve(model, boxes, inverted);
-        System.out.println("Width: " + rectW.getValue() + "\nHeight: " + rectH.getValue() + "\n");
-        return sol;
+    protected void solve(Model model, IntVar[][] boxes, IntVar rectW, IntVar rectH, IntVar area) {
+        Solver solver = model.getSolver();
+        System.out.println("Optimization results for the problem: ");
+        while (solver.solve()) {
+            System.out.println("(W:" + rectW.getValue() + " * H:" + rectH.getValue() + "\t= A: " + area.getValue() + ")");
+        }
+
+        //Print time needed to solve the problem
+        System.out.println("Time needed to solve the problem: " + (solver.getTimeCount()*1000) + "ms");
     }
 
     protected List<int[][]> solve(Model model, IntVar[][] boxes, boolean inverted) {
