@@ -24,21 +24,26 @@ public abstract class AbstractPack implements Pack {
 
     public abstract List<int[][]> pack();
 
-    protected List<int[][]> solve(Model model, IntVar[][] boxes, IntVar rectW, IntVar rectH) {
-        List<int[][]> sol = solve(model, boxes);
+    protected List<int[][]> solve(Model model, IntVar[][] boxes, IntVar rectW, IntVar rectH, boolean inverted) {
+        List<int[][]> sol = solve(model, boxes, inverted);
         System.out.println("Width: " + rectW.getValue() + "\nHeight: " + rectH.getValue() + "\n");
         return sol;
     }
 
-    protected List<int[][]> solve(Model model, IntVar[][] boxes) {
+    protected List<int[][]> solve(Model model, IntVar[][] boxes, boolean inverted) {
         Solver solver = model.getSolver();
 
         List<int[][]> solutions = new ArrayList<>();
         while (solver.solve()) {
             int[][] sol = new int[2][n];
             for(int i = 0; i < n; i++) {
-                sol[0][i] = boxes[0][i].getValue();
-                sol[1][i] = boxes[1][i].getValue();
+                if(inverted) {
+                    sol[0][i] = boxes[0][n-i-1].getValue();
+                    sol[1][i] = boxes[1][n-i-1].getValue();
+                } else {
+                    sol[0][i] = boxes[0][i].getValue();
+                    sol[1][i] = boxes[1][i].getValue();
+                }
             }
             solutions.add(sol);
         }

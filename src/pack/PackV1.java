@@ -45,7 +45,7 @@ public class PackV1 extends AbstractPack implements Pack {
             }
         }
 
-        return super.solve(model, boxes);
+        return super.solve(model, boxes, false);
     }
 
 }

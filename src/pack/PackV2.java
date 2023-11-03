@@ -37,6 +37,6 @@ public class PackV2 extends AbstractPack implements Pack {
 
         model.diffN(boxes[0], boxes[1], sizes, sizes, true).post();
 
-        return super.solve(model, boxes);
+        return super.solve(model, boxes, false);
     }
 }

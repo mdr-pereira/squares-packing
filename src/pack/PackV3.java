@@ -23,20 +23,13 @@ public class PackV3 extends AbstractPack implements Pack {
 
         //Create the variables for the boxes' origin coordinates.
         IntVar[][] boxes = new IntVar[2][n];
-        IntVar[][] boxes_invert = new IntVar[2][n];
         IntVar[] sizes = model.intVarArray(n, 1, n);
 
         boxes[0] = model.intVarArray(n, 1, maxW);
         boxes[1] = model.intVarArray(n, 1, maxH);
 
-        boxes_invert[0] = model.intVarArray(n, 1, maxW);
-        boxes_invert[1] = model.intVarArray(n, 1, maxH);
-
         for(int i = 0; i < n; i++) {
             sizes[i].eq(n-i).post();
-
-            boxes_invert[0][i].eq(boxes[0][n-i-1]).post();
-            boxes_invert[1][i].eq(boxes[1][n-i-1]).post();
 
             model.arithm(model.intOffsetView(boxes[0][i], n-i-1), "<=", maxW).post();
             model.arithm(model.intOffsetView(boxes[1][i], n-i-1), "<=", maxH).post();
@@ -44,7 +37,7 @@ public class PackV3 extends AbstractPack implements Pack {
 
         model.diffN(boxes[0], boxes[1], sizes, sizes, true).post();
 
-        return super.solve(model, boxes_invert);
+        return super.solve(model, boxes, true);
     }
 
 }

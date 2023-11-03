@@ -25,7 +25,6 @@ public class PackOptimize extends AbstractPack implements Pack{
 
         //Create the variables for the boxes' origin coordinates.
         IntVar[][] boxes = new IntVar[2][n];
-        IntVar[][] boxes_invert = new IntVar[2][n];
 
         IntVar[] sizes = model.intVarArray(n, 1, n);
 
@@ -41,9 +40,6 @@ public class PackOptimize extends AbstractPack implements Pack{
         for(int i = 0; i < n; i++) {
             boxes[0][i] = model.intVar(1, maxWH);
             boxes[1][i] = model.intVar(1, maxWH);
-
-            boxes_invert[0][i] = model.intVar(1, maxWH-i);
-            boxes_invert[1][i] = model.intVar(1, maxWH-i);
         }
 
         boxes[0][0].le(1+ ((maxW - n) / 2)).post();
@@ -52,9 +48,6 @@ public class PackOptimize extends AbstractPack implements Pack{
         for(int i = 0; i < n; i++) {
             sizes[i].eq(n-i).post();
 
-            boxes_invert[0][i].eq(boxes[0][n-i-1]).post();
-            boxes_invert[1][i].eq(boxes[1][n-i-1]).post();
-
             model.arithm(model.intOffsetView(boxes[0][i], n-i-1), "<=", rectW).post();
             model.arithm(model.intOffsetView(boxes[1][i], n-i-1), "<=", rectH).post();
         }
@@ -62,6 +55,6 @@ public class PackOptimize extends AbstractPack implements Pack{
         model.diffN(boxes[0], boxes[1], sizes, sizes, true).post();
         model.setObjective(Model.MINIMIZE, rectArea);
 
-        return super.solve(model, boxes_invert, rectW, rectH);
+        return super.solve(model, boxes, rectW, rectH, true);
     }
 }
